@@ -1,7 +1,7 @@
 @import '../../styles/settings.scss';
 
 
-.columnForm  {
+.cardForm  {
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@
 
 
 @media (max-width: 767px) {
-    .columnForm {
+    .cardForm {
       width: 100%;
       margin: 0 0 $base-size 0;
     }

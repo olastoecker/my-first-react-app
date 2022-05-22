@@ -6,12 +6,36 @@ import shortid from 'shortid';
 
 const List = () => {
     const [columns, setColumns] = useState([
-        { id: 1, title: 'Books', icon: 'book' },
-        { id: 2, title: 'Movies', icon: 'film' },
-        { id: 3, title: 'Games', icon: 'gamepad' }
+        {
+            id: 1,
+            title: 'Books',
+            icon: 'book',
+            cards: [
+                { id: 1, title: 'Parable of the Sower' },
+                { id: 2, title: 'Call Me by Your Name' }
+            ]
+        },
+        {
+            id: 2,
+            title: 'Movies',
+            icon: 'film',
+            cards: [
+                { id: 1, title: 'The Power of the Dog' },
+                { id: 2, title: 'Licorice Pizza' }
+            ]
+        },
+        {
+            id: 3,
+            title: 'Games',
+            icon: 'gamepad',
+            cards: [
+                { id: 1, title: 'Red Dead Redemption II' },
+                { id: 2, title: 'Ghost of Tsushima' }
+            ]
+        }
     ]);
     const addColumn = newColumn => {
-		setColumns([...columns, { id: shortid(), title: newColumn.title, icon: newColumn.icon }]);
+        setColumns([...columns, { id: shortid(), title: newColumn.title, icon: newColumn.icon, cards: [] }]);
     };
     return (
     <div className={styles.list}>
@@ -20,11 +44,23 @@ const List = () => {
         </header>
         <p className={styles.description}>Interesting things I want to check out</p>
         <section className={styles.columns}>
-            {columns.map(column => <Column key={column.id} title={column.title} icon={column.icon} />)}
+        {columns.map(column => <Column key={column.id} id={column.id} title={column.title} icon={column.icon} cards={column.cards} />)}
         </section>
         <ColumnForm action={addColumn} />
     </div>
     );
+
+    const addCard = (newCard, columnId) => {
+        const columnsUpdated = columns.map(column => {
+            if(column.id === columnId)
+                return { ...column, cards: [...column.cards, { id: shortid(), title: newCard.title }]}
+            else
+                return column
+        })
+    
+        setColumns(columnsUpdated);
+    
+    };
 };
 
 export default List;
